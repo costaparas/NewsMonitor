@@ -74,13 +74,7 @@ def test_section_scraping(webpage):
         [{'name': 'title', 'class': 'block__title'}]
     )
     items = s.scrape(webpage)
-    assert items == [
-        {'title': 'Vaccine in Focus'},
-        {'title': 'SBS News Explains'},
-        {'title': 'News from around SBS'},
-        {'title': "Editor's Choice"},
-        {'title': 'Investigations'}
-    ]
+    assert items == get_static_json_file('sections.json')
 
 
 def test_article_scraping(webpage):
@@ -96,6 +90,7 @@ def test_article_scraping(webpage):
     )
     items = s.scrape(webpage)
     assert items == get_static_json_file('articles.json')
+
 
 def test_list_scraping(webpage):
     s = scraper.ItemScraper(
