@@ -49,10 +49,7 @@ def mocked_get_request(url, **kwargs):
             else:
                 find = url  # static file
             filepath = get_static_filepath(find)
-            if filepath:
-                with open(filepath) as f:
-                    self.content = ''.join(f.readlines())
-            else:
-                self.content = b'Placeholder Content'
+            with open(filepath) as f:
+                self.content = ''.join(f.readlines())
 
     return MockResponse(url, **kwargs)
