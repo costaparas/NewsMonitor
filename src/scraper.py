@@ -6,8 +6,8 @@ class ItemScraper:
         Class constructor.
 
         :param string item_selector: CSS class of items to select
-        :param dict metadata_selectors: name and CSS class of fields
-               to select within each item
+        :param dict metadata_selectors: name of fields to select within
+               each item and selectors to use for extracting them
         """
         self.item_selector = item_selector
         self.metadata_selectors = metadata_selectors
@@ -25,7 +25,13 @@ class ItemScraper:
             item = {}
             for selector in self.metadata_selectors:
                 data = e.find(class_=selector['class'])
-                if data:
+                if data and 'tag' in selector and 'attr' in selector:
+                    # search for tag & extract HTML attribute
+                    data = data.find(selector['tag'])
+                    if data:
+                        item[selector['name']] = data[selector['attr']]
+                elif data:
+                    # extract text data from element
                     item[selector['name']] = data.text.strip()
             if item:
                 self.content.append(item)

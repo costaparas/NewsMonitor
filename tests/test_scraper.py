@@ -89,7 +89,9 @@ def test_article_scraping(webpage):
         [
             {'name': 'topic', 'class': 'topic__string'},
             {'name': 'title', 'class': 'preview__headline'},
-            {'name': 'date', 'class': 'date__string'}
+            {'name': 'date', 'class': 'date__string'},
+            {'name': 'url', 'class': 'preview__headline',
+             'tag': 'a', 'attr': 'href'}
         ]
     )
     items = s.scrape(webpage)
