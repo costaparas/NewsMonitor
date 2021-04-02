@@ -1,5 +1,7 @@
 from database import DBInterface
 from monitor import NewsMonitor
+
+import json
 import signal
 import sys
 import time
@@ -28,7 +30,7 @@ def main():
     DB = DBInterface(DB_URI)
     monitor = NewsMonitor(DB)
     while True:
-        monitor.update()
+        print(json.dumps(monitor.update(), indent=4))
         time.sleep(INTERVAL)
 
 
