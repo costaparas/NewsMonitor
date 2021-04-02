@@ -2,7 +2,7 @@ from config import DB_URI
 from config import INTERVAL
 from database import DBInterface
 from datetime import datetime
-from monitor import NewsMonitor
+from monitor import SBSNewsMonitor
 
 import json
 import signal
@@ -29,10 +29,11 @@ def main():
     global DB
     signal.signal(signal.SIGINT, signal_handler)
     DB = DBInterface(DB_URI)
-    monitor = NewsMonitor(DB)
+    monitors = [SBSNewsMonitor(DB)]
     while True:
         print(f'Current time: {datetime.now()}')
-        print(json.dumps(monitor.update(), indent=4))
+        for monitor in monitors:
+            print(json.dumps(monitor.update(), indent=4))
         time.sleep(INTERVAL)
 
 

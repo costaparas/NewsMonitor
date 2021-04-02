@@ -29,7 +29,7 @@ PREVIOUS = {
 @pytest.fixture(scope='function')
 def news(*args, **kwargs):
     db = database.DBInterface(TEST_DB_URI)
-    yield monitor.NewsMonitor(db)
+    yield monitor.SBSNewsMonitor(db)
     db.close()
 
 
