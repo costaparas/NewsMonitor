@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
+from helpers import get_static_filepath
+from helpers import get_static_json_file
+from helpers import mocked_get_request
 from src import scraper
-from unittest import mock
 
 import json
 import os
@@ -8,64 +10,10 @@ import pytest
 import requests
 
 
-def get_static_filepath(filename):
-    """
-    Get local filepath for a static test file.
-
-    :param string filename: name of file to retrieve
-    :return dict: the filepath relative to the testing directory
-    :raises ValueError: if file cannot be found
-    """
-    parent = os.path.dirname(os.path.realpath(__file__))
-    filepath = os.path.join(parent, 'data', filename)
-    if os.path.isfile(filepath):
-        return filepath
-    raise ValueError('Cannot find file')
-
-
-def get_static_json_file(filename):
-    """
-    Return file contents of a static JSON file.
-
-    :param string filename: name of file to retrieve
-    :return list: the static JSON data
-    """
-    try:
-        filepath = get_static_filepath(filename)
-        with open(filepath) as f:
-            return json.load(f)
-    except ValueError:
-        return []
-
-
-def mocked_get_request(url):
-    """
-    Mock perform a GET request for a file.
-
-    :param string url: name of file to use a response content
-    :return MockResponse: mocked GET response
-    """
-    class MockResponse:
-        """Mock class for a GET response."""
-
-        def __init__(self, url):
-            filepath = get_static_filepath(url)
-            if filepath:
-                with open(filepath) as f:
-                    self.content = ''.join(f.readlines())
-            else:
-                self.content = b'Placeholder Content'
-
-    return MockResponse(url)
-
-
 @pytest.fixture(scope='function')
 def webpage(*args, **kwargs):
-    url = 'news-v1.html'
-    with mock.patch('requests.get') as mocked_request:
-        mocked_request.side_effect = mocked_get_request
-        soup = BeautifulSoup(requests.get(url).content, 'html.parser')
-    return soup
+    content = ''.join(open(get_static_filepath('news-v1.html')).readlines())
+    return BeautifulSoup(content, 'html.parser')
 
 
 def test_section_scraping(webpage):

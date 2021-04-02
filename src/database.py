@@ -57,6 +57,30 @@ class TrackedItem(Base):
         self.date = date
         self.topic = topic
 
+    def update(self, db_tuple, tuple_data, new_data):
+        """
+        Update database tuple with new data.
+
+        :param database.Table db_tuple: existing database tuple
+        :param dict tuple_data: existing data as a dict
+        :param dict new_data: current data to update with
+        :return boolean: True if the tuple was updated;
+                False if no update was needed (data unchanged)
+        """
+        changed = False
+        for col, val in tuple_data.items():
+            if val is not None and col in new_data:
+                if val != new_data[col]:
+                    setattr(db_tuple, col, new_data[col])
+                    changed = True
+            elif val is not None and col not in new_data:
+                setattr(db_tuple, col, None)
+                changed = True
+            elif val is None and col in new_data:
+                setattr(db_tuple, col, new_data[col])
+                changed = True
+        return changed
+
 
 class DBInterface:
     """Interact with database."""
@@ -111,14 +135,21 @@ class DBInterface:
         self.session.add(new_item)
         self.session.commit()
 
-    def tuple_to_dict(self, row):
+    def tuple_to_dict(self, row, skip_pk=False, skip_cols=[]):
         """
         Convert database tuple into a Python dictionary.
 
         :param database.Table row: source database tuple
+        :param boolean skip_pk: True if primary key should be
+               skipped; False otherwise
+        :param list skip_cols: columns to skip
         :return dict: dictionary containing the data
         """
-        return {c.name: getattr(row, c.name) for c in row.__table__.columns}
+        ret = {}
+        for c in row.__table__.columns:
+            if c.name not in skip_cols and (not skip_pk or not c.primary_key):
+                ret[c.name] = getattr(row, c.name)
+        return ret
 
     def close(self):
         """Close any open resources."""
