@@ -1,3 +1,5 @@
+from config import DB_URI
+from config import INTERVAL
 from database import DBInterface
 from datetime import datetime
 from monitor import NewsMonitor
@@ -8,9 +10,7 @@ import sys
 import time
 
 
-DB_URI = 'sqlite:///news.db'  # database location
 DB = None  # database interface
-INTERVAL = 5 * 60  # update interval in seconds
 
 
 def signal_handler(*args):

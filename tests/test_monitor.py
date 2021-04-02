@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from src.config import TEST_DB_URI
 from helpers import get_static_filepath
 from helpers import get_static_json_file
 from helpers import mocked_get_request
@@ -9,8 +10,6 @@ from unittest import mock
 import pytest
 import requests
 
-
-DB_URI = 'sqlite:///test.db'  # database location
 
 DATA = {
     "date": "3 hours ago",
@@ -29,7 +28,7 @@ PREVIOUS = {
 
 @pytest.fixture(scope='function')
 def news(*args, **kwargs):
-    db = database.DBInterface(DB_URI)
+    db = database.DBInterface(TEST_DB_URI)
     yield monitor.NewsMonitor(db)
     db.close()
 
