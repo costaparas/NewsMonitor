@@ -22,12 +22,17 @@ source env/bin/activate
 # Install requirements
 pip install -r requirements.txt
 
-# Run program
+# Run program ad-hoc
 python src/main.py
 
-# Run tests
+# Run unit tests
 rm test.db
 pytest -sv tests/*
+
+# Check unit testing coverage
+rm test.db
+coverage run -m pytest tests/*
+coverage report -m src/*.py tests/*.py
 ```
 
 ### Using Docker
