@@ -98,7 +98,7 @@ class NewsMonitor(ABC):
 
 
 class SBSNewsMonitor(NewsMonitor):
-    """Monitor a news web page."""
+    """Monitor an SBS news web page."""
 
     def __init__(self, db):
         """
