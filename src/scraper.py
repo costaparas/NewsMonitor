@@ -21,11 +21,17 @@ class ItemScraper:
 
         Metadata can be scraped in the following currently supported ways:
           - selecting an element by CSS class within the scraped item
+            (if the selector defines a `class`), otherwise
           - selecting an element by tag name within the scraped item
+            (if the selector defines a `tag`)
 
         In either case, the extracted metadata may either be:
-            - the text content in the element
             - the value of a HTML attribute in the element
+              (if the selector defines an `attr`), otherwise
+            - the text content in the element
+
+        Metadata should also define a `name` to be used as a unique key
+        in the returned data.
 
         :param BeautifulSoup soup: object derived from the web page
         :return list: key-value pairs of metadata from the scraped items
