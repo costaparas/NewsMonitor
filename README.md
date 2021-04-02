@@ -19,6 +19,14 @@ Currently, the [SBS News website](https://www.sbs.com.au/news/) is monitored and
 
 The system could easily be extended to also track changes to the elements on the page that are of interest, though would likely change less frequently.
 
+### Multi-Website Monitoring
+
+The system is designed to make is possible to monitor multiple news sources, and is not specific to SBS sites.
+
+News monitoring is achieved by defining the relevant URL, item selector and metadata selectors in a subclass of the abstract base class `NewsMonitor` defined in [`monitor.py`](src/monitor.py). The abstract base class defines the necessary methods for detecting and reporting the updates - they need not be implemented in the base class.
+
+If more news websites are to be monitored, an appropriate base class should be defined with the desired fields, and a corresponding object ought to be created and added to the `monitors` list in [`main.py`](src/main.py).
+
 ## Getting Started
 
 ### Local Development

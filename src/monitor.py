@@ -1,48 +1,15 @@
+from abc import ABC
 from bs4 import BeautifulSoup
 from scraper import ItemScraper
 
 import requests
 
 
-class NewsMonitor:
+class NewsMonitor(ABC):
     """Monitor a news web page."""
 
-    def __init__(self, db):
-        """
-        Class constructor.
-
-        :param DBInterface db: the database interface
-        """
-        self.db = db
-        self.url = 'https://www.sbs.com.au/news/'
-        self.items = [
-            {
-                'item_type': 'section',
-                'item_selector': 'page__section page__section--style-1',
-                'metadata_selectors': [
-                    {'name': 'title', 'class': 'block__title'}
-                ],
-            },
-            {
-                'item_type': 'article',
-                'item_selector': 'preview',
-                'metadata_selectors': [
-                    {'name': 'topic', 'class': 'topic__string'},
-                    {'name': 'title', 'class': 'preview__headline'},
-                    {'name': 'date', 'class': 'date__string'},
-                    {'name': 'url', 'class': 'preview__headline',
-                     'tag': 'a', 'attr': 'href'}
-                ]
-            },
-            {
-                'item_type': 'link',
-                'item_selector': 'menu__list-item',
-                'metadata_selectors': [
-                    {'name': 'title', 'tag': 'a'},
-                    {'name': 'url', 'tag': 'a', 'attr': 'href'}
-                ]
-            }
-        ]
+    def __init__(self):
+        pass
 
     def update(self):
         """
@@ -109,3 +76,45 @@ class NewsMonitor:
             description['previous_contents'] = normalize(previous_data)
 
         return description
+
+
+class SBSNewsMonitor(NewsMonitor):
+    """Monitor a news web page."""
+
+    def __init__(self, db):
+        """
+        Class constructor.
+
+        :param DBInterface db: the database interface
+        """
+        super().__init__()
+        self.db = db
+        self.url = 'https://www.sbs.com.au/news/'
+        self.items = [
+            {
+                'item_type': 'section',
+                'item_selector': 'page__section page__section--style-1',
+                'metadata_selectors': [
+                    {'name': 'title', 'class': 'block__title'}
+                ],
+            },
+            {
+                'item_type': 'article',
+                'item_selector': 'preview',
+                'metadata_selectors': [
+                    {'name': 'topic', 'class': 'topic__string'},
+                    {'name': 'title', 'class': 'preview__headline'},
+                    {'name': 'date', 'class': 'date__string'},
+                    {'name': 'url', 'class': 'preview__headline',
+                     'tag': 'a', 'attr': 'href'}
+                ]
+            },
+            {
+                'item_type': 'link',
+                'item_selector': 'menu__list-item',
+                'metadata_selectors': [
+                    {'name': 'title', 'tag': 'a'},
+                    {'name': 'url', 'tag': 'a', 'attr': 'href'}
+                ]
+            }
+        ]
