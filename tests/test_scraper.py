@@ -96,7 +96,7 @@ def test_list_scraping(webpage):
     s = scraper.ItemScraper(
         'menu__list-item',
         [
-            {'name': 'topic', 'tag': 'a'},
+            {'name': 'title', 'tag': 'a'},
             {'name': 'url', 'tag': 'a', 'attr': 'href'}
         ]
     )
