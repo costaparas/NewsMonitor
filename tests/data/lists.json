@@ -1,0 +1,230 @@
+[
+   {
+      "topic":"Just In",
+      "url":"/news/latest"
+   },
+   {
+      "topic":"Australia",
+      "url":"/news/topic/australia"
+   },
+   {
+      "topic":"World",
+      "url":"/news/topic/world"
+   },
+   {
+      "topic":"Coronavirus",
+      "url":"/news/topic/coronavirus-covid-19"
+   },
+   {
+      "topic":"Australian Politics",
+      "url":"/news/topic/australian-politics"
+   },
+   {
+      "topic":"Immigration",
+      "url":"/news/topic/immigration"
+   },
+   {
+      "topic":"Indigenous",
+      "url":"/news/topic/indigenous"
+   },
+   {
+      "topic":"Identity",
+      "url":"/news/topic/identity"
+   },
+   {
+      "topic":"Environment",
+      "url":"/news/topic/environment"
+   },
+   {
+      "topic":"Dateline",
+      "url":"//www.sbs.com.au/news/dateline"
+   },
+   {
+      "topic":"Insight",
+      "url":"//www.sbs.com.au/news/insight"
+   },
+   {
+      "topic":"The Feed",
+      "url":"//www.sbs.com.au/news/thefeed"
+   },
+   {
+      "topic":"Small Business Secrets",
+      "url":"//www.sbs.com.au/news/small-business-secrets"
+   },
+   {
+      "topic":"Explore SBS",
+      "url":"//www.sbs.com.au/"
+   },
+   {
+      "topic":"Just In",
+      "url":"/news/latest"
+   },
+   {
+      "topic":"Australia",
+      "url":"/news/topic/australia"
+   },
+   {
+      "topic":"World",
+      "url":"/news/topic/world"
+   },
+   {
+      "topic":"Coronavirus",
+      "url":"/news/topic/coronavirus-covid-19"
+   },
+   {
+      "topic":"Australian Politics",
+      "url":"/news/topic/australian-politics"
+   },
+   {
+      "topic":"Immigration",
+      "url":"/news/topic/immigration"
+   },
+   {
+      "topic":"Indigenous",
+      "url":"/news/topic/indigenous"
+   },
+   {
+      "topic":"Identity",
+      "url":"/news/topic/identity"
+   },
+   {
+      "topic":"Environment",
+      "url":"/news/topic/environment"
+   },
+   {
+      "topic":"Podcasts",
+      "url":"//www.sbs.com.au/news/audio"
+   },
+   {
+      "topic":"Explore SBS",
+      "url":"//www.sbs.com.au/"
+   },
+   {
+      "topic":"Dateline",
+      "url":"//www.sbs.com.au/news/dateline"
+   },
+   {
+      "topic":"Insight",
+      "url":"//www.sbs.com.au/news/insight"
+   },
+   {
+      "topic":"The Feed",
+      "url":"//www.sbs.com.au/news/thefeed"
+   },
+   {
+      "topic":"Small Business Secrets",
+      "url":"//www.sbs.com.au/news/small-business-secrets"
+   },
+   {
+      "topic":"Asia Pacific",
+      "url":"/news/topic/asia-pacific"
+   },
+   {
+      "topic":"North America",
+      "url":"/news/topic/north-america"
+   },
+   {
+      "topic":"South America",
+      "url":"/news/topic/south-america"
+   },
+   {
+      "topic":"Africa",
+      "url":"/news/topic/africa"
+   },
+   {
+      "topic":"Europe",
+      "url":"/news/topic/europe"
+   },
+   {
+      "topic":"Middle East",
+      "url":"/news/topic/middle-east"
+   },
+   {
+      "topic":"SBS Home",
+      "url":"//www.sbs.com.au"
+   },
+   {
+      "topic":"SBS On Demand",
+      "url":"//www.sbs.com.au/ondemand"
+   },
+   {
+      "topic":"Guide",
+      "url":"//www.sbs.com.au/guide"
+   },
+   {
+      "topic":"Radio",
+      "url":"//www.sbs.com.au/radio"
+   },
+   {
+      "topic":"NITV",
+      "url":"//www.sbs.com.au/nitv"
+   },
+   {
+      "topic":"News",
+      "url":"//www.sbs.com.au/news"
+   },
+   {
+      "topic":"The World Game",
+      "url":"//theworldgame.sbs.com.au/"
+   },
+   {
+      "topic":"Cycling",
+      "url":"//www.sbs.com.au/cyclingcentral"
+   },
+   {
+      "topic":"Sport",
+      "url":"//www.sbs.com.au/topics/sport"
+   },
+   {
+      "topic":"Movies",
+      "url":"//www.sbs.com.au/movies"
+   },
+   {
+      "topic":"Food",
+      "url":"//www.sbs.com.au/food"
+   },
+   {
+      "topic":"Voices",
+      "url":"//www.sbs.com.au/topics/voices"
+   },
+   {
+      "topic":"Pride",
+      "url":"//www.sbs.com.au/topics/pride"
+   },
+   {
+      "topic":"Copyright",
+      "url":"//www.sbs.com.au/aboutus/copyright"
+   },
+   {
+      "topic":"Terms & Conditions",
+      "url":"//www.sbs.com.au/aboutus/terms-and-conditions"
+   },
+   {
+      "topic":"Privacy",
+      "url":"//www.sbs.com.au/privacy-policy"
+   },
+   {
+      "topic":"Your online preferences",
+      "url":"//www.sbs.com.au/preferences"
+   },
+   {
+      "topic":"Sales & Advertising",
+      "url":"//www.sbs.com.au/sales/"
+   },
+   {
+      "topic":"Complaints",
+      "url":"//help.sbs.com.au/hc/en-au/articles/360002027575-How-do-I-make-a-complaint-"
+   },
+   {
+      "topic":"SBS Codes of Practice",
+      "url":"//www.sbs.com.au/aboutus/sbs-codes-of-practice"
+   },
+   {
+      "topic":"Careers",
+      "url":"//www.sbs.com.au/careers"
+   },
+   {
+      "topic":"About SBS",
+      "url":"//www.sbs.com.au/aboutus"
+   }
+]

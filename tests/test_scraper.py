@@ -96,3 +96,14 @@ def test_article_scraping(webpage):
     )
     items = s.scrape(webpage)
     assert items == get_static_json_file('articles.json')
+
+def test_list_scraping(webpage):
+    s = scraper.ItemScraper(
+        'menu__list-item',
+        [
+            {'name': 'topic', 'tag': 'a'},
+            {'name': 'url', 'tag': 'a', 'attr': 'href'}
+        ]
+    )
+    items = s.scrape(webpage)
+    assert items == get_static_json_file('lists.json')
