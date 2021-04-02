@@ -52,6 +52,6 @@ class ItemScraper:
                     elif data:
                         # select by HTML tag only
                         item[selector['name']] = data.text.strip()
-            if item:
+            if item and item not in self.content:
                 self.content.append(item)
         return self.content
