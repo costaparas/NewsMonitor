@@ -3,7 +3,29 @@ A general-purpose news website scraper and change monitor
 
 ## Description
 
-TODO
+A specific news website is monitored at a regular interval and changes in tracked items are detected and reported to standard output in a JSON format.
+
+Currently, there are 3 types of changes detected/reported:
+- A new item is added to the page.
+- A previously-detected item is removed from the page.
+- A previously-detected item is updated in some way.
+
+The system could easily be extended to also track changes such as the order of items on the page.
+
+Currently, the [SBS News website](https://www.sbs.com.au/news/) is monitored and 3 types of items are tracked for changes:
+- Sections/section headings
+- Article/article previews
+- Menu items/menu links
+
+The system could easily be extended to also track changes to other elements on the page that are of interest, though would likely change less frequently.
+
+### Multi-Website Monitoring
+
+The system is designed to make it possible to monitor multiple news sources, and is not specific to SBS sites.
+
+News monitoring is achieved by defining the relevant URL and metadata selectors (see [`scraper.py`](src/scraper.py) for details) in a subclass of the abstract base class `NewsMonitor` defined in [`monitor.py`](src/monitor.py). The abstract base class defines the necessary methods for detecting and reporting the updates - they need not be implemented in the base class.
+
+If more news websites are to be monitored, an appropriate base class should be defined with the desired fields, and a corresponding object ought to be created and added to the `monitors` list in [`main.py`](src/main.py).
 
 ## Getting Started
 
@@ -22,12 +44,22 @@ source env/bin/activate
 # Install requirements
 pip install -r requirements.txt
 
-# Run program
+# Run program ad-hoc
 python src/main.py
 
-# Run tests
+# Run unit tests
+rm test.db
 pytest -sv tests/*
+
+# Check unit testing coverage
+rm test.db
+coverage run -m pytest tests/*
+coverage report -m src/*.py tests/*.py
 ```
+
+Current test coverage is 92% across the project ([`src/`](src/) and [`tests/`](tests/) directories).
+
+Excluding [`main.py`](src/main.py), test coverage is 100%.
 
 ### Using Docker
 
@@ -44,6 +76,23 @@ docker run news-monitor:1.0
 # Delete the docker image
 docker rmi news-monitor:1.0 -f
 ```
+
+### Configuration
+
+Some configuration settings are defined in [`config.py`](src/config.py). In particular:
+- `DB_URI`: location of the main program database
+- `TEST_DB_URI`: location of the database to use for testing
+- `INTERVAL`: the update frequency (in seconds)
+
+Currently, the update interval is set to 5 minutes, but can be changed to something more suitable as needed.
+
+The database in current use is [SQLite](https://www.sqlite.org/index.html), though could easily be switched to use a more scalable DBMS such as [PostgreSQL](https://www.postgresql.org/).
+
+### Project Structure
+
+- [`src/`](src/): source code
+- [`tests/`](tests/): unit tests
+- [`tests/data/`](tests/data/): static data files used for unit tests
 
 ## License
 Copyright (C) 2021 Costa Paraskevopoulos
