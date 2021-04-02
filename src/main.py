@@ -11,7 +11,7 @@ def main():
 
     item_selector = 'page__section page__section--style-1'
     metadata_selectors = [
-        {'value': 'block__title', 'name': 'title'}
+        {'name': 'title', 'class': 'block__title'}
     ]
 
     section_scraper = ItemScraper(item_selector, metadata_selectors)

@@ -24,9 +24,9 @@ class ItemScraper:
         for e in self.raw_data:
             item = {}
             for selector in self.metadata_selectors:
-                data = e.find(class_=selector['value'])
+                data = e.find(class_=selector['class'])
                 if data:
-                    item[selector['name']] = data.text
+                    item[selector['name']] = data.text.strip()
             if item:
                 self.content.append(item)
         return self.content
