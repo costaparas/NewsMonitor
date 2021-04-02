@@ -1,4 +1,5 @@
 from database import DBInterface
+from datetime import datetime
 from monitor import NewsMonitor
 
 import json
@@ -30,6 +31,7 @@ def main():
     DB = DBInterface(DB_URI)
     monitor = NewsMonitor(DB)
     while True:
+        print(f'Current time: {datetime.now()}')
         print(json.dumps(monitor.update(), indent=4))
         time.sleep(INTERVAL)
 
