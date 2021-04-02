@@ -39,6 +39,15 @@ class TrackedItem(Base):
     # False if the item was previously on the page
     present = Column(Boolean, nullable=False)
 
+    def __init__(self, title, item_type, present,
+                 url=None, date=None, topic=None):
+        self.title = title
+        self.item_type = item_type
+        self.present = present
+        self.url = url
+        self.date = date
+        self.topic = topic
+
 
 class DBInterface:
     """Interact with database."""
@@ -74,6 +83,33 @@ class DBInterface:
         return self.session.query(
             TrackedItem
         ).filter_by(item_type=item_type).all()
+
+    def insert_item(self, item):
+        """
+        Add item to database.
+
+        :param dict item: the data to add to the database
+        """
+        for field in ['url', 'date', 'topic']:
+            if field not in item:  # insert dummy optional fields
+                item[field] = None
+        new_item = TrackedItem(title=item['title'],
+                               item_type=item['item_type'],
+                               present=item['present'],
+                               url=item['url'],
+                               date=item['date'],
+                               topic=item['topic'])
+        self.session.add(new_item)
+        self.session.commit()
+
+    def tuple_to_dict(self, row):
+        """
+        Convert database tuple into a Python dictionary.
+
+        :param database.Table row: source database tuple
+        :return dict: dictionary containing the data
+        """
+        return {c.name: getattr(row, c.name) for c in row.__table__.columns}
 
     def close(self):
         """Close any open resources."""

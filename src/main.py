@@ -8,8 +8,6 @@ import requests
 def main():
     db_uri = 'sqlite:///news.db'
     db = DBInterface(db_uri)
-    print(db.get_items('article'))
-    db.close()
 
     url = 'https://www.sbs.com.au/news/'
     page = requests.get(url).content
@@ -23,6 +21,13 @@ def main():
     section_scraper = ItemScraper(item_selector, metadata_selectors)
     section_items = section_scraper.scrape(soup)
     print(section_items)
+    for item in section_items:
+        item['present'] = True
+        item['item_type'] = 'section'
+        db.insert_item(item)
+    for item in db.get_items('section'):
+        print(db.tuple_to_dict(item))
+    db.close()
     return 'Test'
 
 
