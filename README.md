@@ -26,6 +26,7 @@ pip install -r requirements.txt
 python src/main.py
 
 # Run tests
+rm test.db
 pytest -sv tests/*
 ```
 
