@@ -2,9 +2,40 @@ from bs4 import BeautifulSoup
 from src import scraper
 from unittest import mock
 
+import json
 import os
 import pytest
 import requests
+
+
+def get_static_filepath(filename):
+    """
+    Get local filepath for a static test file.
+
+    :param string filename: name of file to retrieve
+    :return dict: the filepath relative to the testing directory
+    :raises ValueError: if file cannot be found
+    """
+    parent = os.path.dirname(os.path.realpath(__file__))
+    filepath = os.path.join(parent, 'data', filename)
+    if os.path.isfile(filepath):
+        return filepath
+    raise ValueError('Cannot find file')
+
+
+def get_static_json_file(filename):
+    """
+    Return file contents of a static JSON file.
+
+    :param string filename: name of file to retrieve
+    :return list: the static JSON data
+    """
+    try:
+        filepath = get_static_filepath(filename)
+        with open(filepath) as f:
+            return json.load(f)
+    except ValueError:
+        return []
 
 
 def mocked_get_request(url):
@@ -18,9 +49,8 @@ def mocked_get_request(url):
         """Mock class for a GET response."""
 
         def __init__(self, url):
-            parent = os.path.dirname(os.path.realpath(__file__))
-            filepath = os.path.join(parent, 'data', url)
-            if os.path.isfile(filepath):
+            filepath = get_static_filepath(url)
+            if filepath:
                 with open(filepath) as f:
                     self.content = ''.join(f.readlines())
             else:
@@ -29,19 +59,21 @@ def mocked_get_request(url):
     return MockResponse(url)
 
 
-@pytest.mark.parametrize('url', ['news-v1.html'])
-def test_scraper(url):
+@pytest.fixture(scope='function')
+def webpage(*args, **kwargs):
+    url = 'news-v1.html'
     with mock.patch('requests.get') as mocked_request:
         mocked_request.side_effect = mocked_get_request
         soup = BeautifulSoup(requests.get(url).content, 'html.parser')
+    return soup
 
-    item_selector = 'page__section page__section--style-1'
-    metadata_selectors = [
-        {'value': 'block__title', 'name': 'title'}
-    ]
 
-    s = scraper.ItemScraper(item_selector, metadata_selectors)
-    items = s.scrape(soup)
+def test_section_scraping(webpage):
+    s = scraper.ItemScraper(
+        'page__section page__section--style-1',
+        [{'name': 'title', 'class': 'block__title'}]
+    )
+    items = s.scrape(webpage)
     assert items == [
         {'title': 'Vaccine in Focus'},
         {'title': 'SBS News Explains'},
@@ -49,3 +81,16 @@ def test_scraper(url):
         {'title': "Editor's Choice"},
         {'title': 'Investigations'}
     ]
+
+
+def test_article_scraping(webpage):
+    s = scraper.ItemScraper(
+        'preview',
+        [
+            {'name': 'topic', 'class': 'topic__string'},
+            {'name': 'title', 'class': 'preview__headline'},
+            {'name': 'date', 'class': 'date__string'}
+        ]
+    )
+    items = s.scrape(webpage)
+    assert items == get_static_json_file('articles.json')
