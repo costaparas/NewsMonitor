@@ -20,6 +20,7 @@ class TrackedItem(Base):
     Metadata about the item is stored, along with its "type" and a flag
     to indidate whehter its currently on the page.
     """
+
     __tablename__ = "tracked_item"
 
     # w.l.o.g items can be distinguished by their "title"
@@ -41,6 +42,16 @@ class TrackedItem(Base):
 
     def __init__(self, title, item_type, present,
                  url=None, date=None, topic=None):
+        """
+        Class constructor.
+
+        :param string title: the distinct item title
+        :param string item_type: the type of item
+        :param boolean present: True if present on the page; False otherwise
+        :param string url: the associated url, if applicable
+        :param string date: the associated date/time, if applicable
+        :param string topic: the associated topic, if applicable
+        """
         self.title = title
         self.item_type = item_type
         self.present = present
@@ -66,7 +77,7 @@ class DBInterface:
 
         # create empty db tables on first run
         try:
-            self.session.query(TrackedItem).one()
+            self.session.query(TrackedItem).first()
         except OperationalError:
             Base.metadata.create_all(self.db_engine,
                                      Base.metadata.tables.values(),

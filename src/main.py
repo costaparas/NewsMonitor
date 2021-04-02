@@ -5,11 +5,14 @@ from scraper import ItemScraper
 import requests
 
 
+db_uri = 'sqlite:///news.db'
+url = 'https://www.sbs.com.au/news/'
+
+
 def main():
-    db_uri = 'sqlite:///news.db'
+    """Program entrypoint."""
     db = DBInterface(db_uri)
 
-    url = 'https://www.sbs.com.au/news/'
     page = requests.get(url).content
     soup = BeautifulSoup(page, 'html.parser')
 
@@ -28,7 +31,6 @@ def main():
     for item in db.get_items('section'):
         print(db.tuple_to_dict(item))
     db.close()
-    return 'Test'
 
 
 if __name__ == '__main__':
