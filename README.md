@@ -3,7 +3,21 @@ A general-purpose news website scraper and change monitor
 
 ## Description
 
-TODO
+A specific news website is monitored at a regular interval and changes in tracked items are detected and reported to standard output in a JSON format.
+
+Currently, there are 3 types of changes detected/reported:
+- A new item is added to the page.
+- A previously-detected item is removed from the page.
+- A previously-detected item is updated in some way.
+
+The system could easily be extended to also track changes such as the order of items on the page.
+
+Currently, the [SBS News website](https://www.sbs.com.au/news/) is monitored and 3 types of items are tracked for changes:
+- Section headings
+- Article/article previews
+- Menu items/menu links
+
+The system could easily be extended to also track changes to the elements on the page that are of interest, though would likely change less frequently.
 
 ## Getting Started
 
@@ -50,6 +64,15 @@ docker run news-monitor:1.0
 # Delete the docker image
 docker rmi news-monitor:1.0 -f
 ```
+
+### Configuration
+
+Some configuration settings are defined in config.py. In particular:
+- `DB_URI`: location of the main program database
+- `TEST_DB_URI`: location of the database to use for testing
+- `INTERVAL`: the update frequency (in seconds)
+
+Currently, the update interval is set to 5 minutes, but can be changed to something more suitable as needed.
 
 ## License
 Copyright (C) 2021 Costa Paraskevopoulos
