@@ -37,6 +37,10 @@ def mocked_get_request(url, **kwargs):
     """
     Mock perform a GET request for a file.
 
+    When mocking a GET request, use a lambda to introduce the necessary `mock`
+    keyword argument which holds the filename of a static test file in the
+    test data directory.
+
     :param string url: name of file to use a response content
     :return MockResponse: mocked GET response
     """

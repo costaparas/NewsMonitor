@@ -9,6 +9,22 @@ class NewsMonitor(ABC):
     """Monitor a news web page."""
 
     def __init__(self):
+        """
+        Class constructor.
+
+        Any derived class should define a `url` string and an `items`
+        list of dicts.
+
+        The `url` is the web page to monitor.
+
+        Each element of the `items` list should define the following keys:
+        - `item_type`: a string representing the type of item to monitor
+        - `item_selector`: the CSS class of the item being monitored
+        - `metadata_selectors`: list of dicts of metadata selectors
+
+        Each metadata selector should define keys as described in
+        :func:`~scraper.ItemScraper.scrape`.
+        """
         pass
 
     def update(self):
@@ -25,15 +41,17 @@ class NewsMonitor(ABC):
             scraper = ItemScraper(item['item_selector'],
                                   item['metadata_selectors'])
             current_items = scraper.scrape(soup)
-            for i in self.db.get_items(item['item_type']):
+            for i in self.db.get_items(item['item_type'], self.url):
                 item_dict = self.db.tuple_to_dict(i, True,
-                                                  ['item_type', 'present'])
+                                                  ['item_type', 'present',
+                                                   'news_source'])
                 current = [e for e in current_items if e['title'] == i.title]
                 if len(current):
                     if i.update(i, item_dict, current[0]):  # possibly update
                         changes.append(self.describe_change('updated',
                                        item['item_type'], current[0],
                                        item_dict))
+                    i.news_source = self.url
                     current_items.remove(current[0])  # discard once processed
                 elif i.present:
                     changes.append(self.describe_change('removed',
@@ -46,6 +64,7 @@ class NewsMonitor(ABC):
                                item['item_type'], e.copy()))
                 e['present'] = True
                 e['item_type'] = item['item_type']
+                e['news_source'] = self.url
                 self.db.insert_item(e)
 
         self.db.session.commit()
@@ -79,7 +98,7 @@ class NewsMonitor(ABC):
 
 
 class SBSNewsMonitor(NewsMonitor):
-    """Monitor a news web page."""
+    """Monitor an SBS news web page."""
 
     def __init__(self, db):
         """

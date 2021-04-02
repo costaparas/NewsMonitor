@@ -57,7 +57,7 @@ coverage run -m pytest tests/*
 coverage report -m src/*.py tests/*.py
 ```
 
-Current test coverage is 91% across the project ([`src/`](src/) and [`tests/`](tests/) directories).
+Current test coverage is 92% across the project ([`src/`](src/) and [`tests/`](tests/) directories).
 
 Excluding [`main.py`](src/main.py), test coverage is 100%.
 
@@ -85,6 +85,8 @@ Some configuration settings are defined in [`config.py`](src/config.py). In part
 - `INTERVAL`: the update frequency (in seconds)
 
 Currently, the update interval is set to 5 minutes, but can be changed to something more suitable as needed.
+
+The database in current use is [SQLite](https://www.sqlite.org/index.html), though could easily be switched to use a more scalable DBMS such as [PostgreSQL](https://www.postgresql.org/).
 
 ### Project Structure
 
