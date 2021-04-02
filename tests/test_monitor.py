@@ -30,7 +30,8 @@ PREVIOUS = {
 @pytest.fixture(scope='function')
 def news(*args, **kwargs):
     db = database.DBInterface(DB_URI)
-    return monitor.NewsMonitor(db)
+    yield monitor.NewsMonitor(db)
+    db.close()
 
 
 @pytest.mark.parametrize('event, element, previous, res', [
