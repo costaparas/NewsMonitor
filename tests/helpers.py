@@ -1,6 +1,5 @@
 import json
 import os
-import re
 
 
 def get_static_filepath(filename):
@@ -42,6 +41,7 @@ def mocked_get_request(url, **kwargs):
     test data directory.
 
     :param string url: name of file to use a response content
+    :param list kwargs: keyword arguments
     :return MockResponse: mocked GET response
     """
     class MockResponse:

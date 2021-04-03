@@ -63,11 +63,10 @@ class TrackedItem(Base):
         self.date = date
         self.topic = topic
 
-    def update(self, db_tuple, tuple_data, new_data):
+    def update(self, tuple_data, new_data):
         """
         Update database tuple with new data.
 
-        :param database.Table db_tuple: existing database tuple
         :param dict tuple_data: existing data as a dict
         :param dict new_data: current data to update with
         :return boolean: True if the tuple was updated;
@@ -77,13 +76,13 @@ class TrackedItem(Base):
         for col, val in tuple_data.items():
             if val is not None and col in new_data:
                 if val != new_data[col]:
-                    setattr(db_tuple, col, new_data[col])
+                    setattr(self, col, new_data[col])
                     changed = True
             elif val is not None and col not in new_data:
-                setattr(db_tuple, col, None)
+                setattr(self, col, None)
                 changed = True
             elif val is None and col in new_data:
-                setattr(db_tuple, col, new_data[col])
+                setattr(self, col, new_data[col])
                 changed = True
         return changed
 

@@ -1,6 +1,4 @@
-from bs4 import BeautifulSoup
 from src.config import TEST_DB_URI
-from helpers import get_static_filepath
 from helpers import get_static_json_file
 from helpers import mocked_get_request
 from src import database
