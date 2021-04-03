@@ -47,7 +47,7 @@ class NewsMonitor(ABC):
                                                    'news_source'])
                 current = [e for e in current_items if e['title'] == i.title]
                 if len(current):
-                    if i.update(i, item_dict, current[0]):  # possibly update
+                    if i.update(item_dict, current[0]):  # possibly update
                         changes.append(self.describe_change('updated',
                                        item['item_type'], current[0],
                                        item_dict))

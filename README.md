@@ -33,6 +33,7 @@ If more news websites are to be monitored, an appropriate base class should be d
 
 It is assumed that:
 * Python version 3.8.8 or above is installed (<https://www.python.org/downloads/>)
+* The `virtualenv` module is installed (<https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>)
 
 ```sh
 # Create a virtual environment
@@ -51,13 +52,13 @@ python src/main.py
 rm test.db
 pytest -sv tests/*
 
-# Check unit testing coverage
+# Check unit test coverage
 rm test.db
 coverage run -m pytest tests/*
 coverage report -m src/*.py tests/*.py
 ```
 
-Current test coverage is 92% across the project ([`src/`](src/) and [`tests/`](tests/) directories).
+Current test coverage is 93% across the project ([`src/`](src/) and [`tests/`](tests/) directories).
 
 Excluding [`main.py`](src/main.py), test coverage is 100%.
 

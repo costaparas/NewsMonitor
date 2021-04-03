@@ -3,7 +3,6 @@ from helpers import get_static_json_file
 from helpers import mocked_get_request
 
 import pytest
-import requests
 
 
 def test_static_filepath():

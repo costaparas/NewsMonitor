@@ -1,13 +1,10 @@
 from bs4 import BeautifulSoup
 from helpers import get_static_filepath
 from helpers import get_static_json_file
-from helpers import mocked_get_request
 from src import scraper
 
 import json
-import os
 import pytest
-import requests
 
 
 @pytest.fixture(scope='function')

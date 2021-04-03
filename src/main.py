@@ -13,11 +13,12 @@ import time
 DB = None  # database interface
 
 
-def signal_handler(*args):
+def signal_handler(*args, **kwargs):
     """
     Gracefully exit program by closing open resources.
 
-    :param type args: arguments
+    :param list args: non-keyword arguments
+    :param list kwargs: keyword arguments
     """
     if DB:
         DB.close()
